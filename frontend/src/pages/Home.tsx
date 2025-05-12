@@ -12,7 +12,7 @@ interface Country {
 }
 
 export function HomePage() {
-  const { loading, error, data } = useQuery<{ countries: Country[] }>(GET_COUNTRIES);
+  const { data } = useQuery<{ countries: Country[] }>(GET_COUNTRIES);
   const [form, setForm] = useState({ name: '', code: '', emoji: '' });
 
   const [addCountry] = useMutation(ADD_COUNTRY, {
@@ -43,27 +43,49 @@ export function HomePage() {
     }
   };
 
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p>Erreur : {error.message}</p>;
-
   return (
-    <div>
-      <h1>Liste des Pays</h1>
+    <div className="max-w-3xl mx-auto p-4">
+      <h1 className="text-3xl font-bold text-blue-600 mb-6">Liste des Pays</h1>
 
-      <form onSubmit={handleSubmit}>
-        <input name="name" placeholder="Nom" value={form.name} onChange={handleChange} />
-        <input name="code" placeholder="Code" value={form.code} onChange={handleChange} />
-        <input name="emoji" placeholder="Emoji" value={form.emoji} onChange={handleChange} />
-        <button type="submit">Ajouter</button>
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-row gap-2 mb-6">
+        <input
+          name="name"
+          placeholder="Nom"
+          value={form.name}
+          onChange={handleChange}
+          className="border border-gray-300 rounded px-3 py-2 w-full sm:w-auto"
+        />
+        <input
+          name="code"
+          placeholder="Code"
+          value={form.code}
+          onChange={handleChange}
+          className="border border-gray-300 rounded px-3 py-2 w-full sm:w-auto"
+        />
+        <input
+          name="emoji"
+          placeholder="Emoji"
+          value={form.emoji}
+          onChange={handleChange}
+          className="border border-gray-300 rounded px-3 py-2 w-full sm:w-auto"
+        />
+        <button
+          type="submit"
+          className="bg-blue-600 text-white rounded px-4 py-2 hover:bg-blue-700 transition"
+        >
+          Ajouter
+        </button>
       </form>
 
-      <div>
+      <div className="grid gap-3 sm:grid-cols-2">
         {data?.countries.map(({ id, name, code, emoji, continent }) => (
           <Link key={id} to={`/country/${code}`}>
-            <div>
-              <span>{emoji}</span>
-              <span>{name}</span>
-              {continent?.name && <span> ({continent.name})</span>}
+            <div className="p-4 border rounded hover:bg-gray-100 transition">
+              <span className="text-2xl">{emoji}</span>
+              <span className="ml-2 font-semibold">{name}</span>
+              {continent?.name && (
+                <span className="text-sm text-gray-500"> ({continent.name})</span>
+              )}
             </div>
           </Link>
         ))}

@@ -11,14 +11,28 @@ export function OneCountryPage() {
   const country = data?.country;
 
   return (
-    <div>
-      <Link to="/">Retour</Link>
+    <div className="max-w-xl mx-auto p-4">
+      <Link
+        to="/"
+        className="text-blue-600 hover:underline block mb-4"
+      >
+        ← Retour à la liste
+      </Link>
+
       {country && (
-        <>
-          <h2>{country.emoji} {country.name}</h2>
-          <p>Code : {country.code}</p>
-          {country.continent && <p>Continent : {country.continent.name}</p>}
-        </>
+        <div className="border rounded p-4 shadow-sm bg-white">
+          <h2 className="text-2xl font-bold mb-2">
+            <span className="text-3xl">{country.emoji}</span> {country.name}
+          </h2>
+          <p className="text-gray-700 mb-1">
+            <strong>Code :</strong> {country.code}
+          </p>
+          {country.continent && (
+            <p className="text-gray-700">
+              <strong>Continent :</strong> {country.continent.name}
+            </p>
+          )}
+        </div>
       )}
     </div>
   );
