@@ -9,6 +9,8 @@ services:
     volumes:
       - ./backend/src:/app/src
       - ./backend/countries.sqlite:/app/countries.sqlite
+    environment:
+      - CORS_ALLOWED_ORIGINS=http://localhost:5173
   frontend:
     stop_grace_period: 0s
     build: 

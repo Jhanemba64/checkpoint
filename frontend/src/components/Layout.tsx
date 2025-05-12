@@ -3,11 +3,11 @@ import { Header } from "./Header";
 
 export function PageLayout() {
   return (
-    <body>
+    <>
       <Header />
       <main>
         <Outlet />
       </main>
-    </body>
+    </>
   );
 }
